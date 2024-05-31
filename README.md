@@ -1,29 +1,27 @@
-### Comfyui MusePose
+### MusePose
 
 [MusePose](https://github.com/TMElyralab/MusePose) is an image-to-video generation framework for virtual human under control signal such as pose. 
 
 `MusePose` is the last building block of **the Muse opensource serie**. Together with [MuseV](https://github.com/TMElyralab/MuseV) and [MuseTalk](https://github.com/TMElyralab/MuseTalk), we hope the community can join us and march towards the vision where a virtual human can be generated end2end with native ability of full body movement and interaction. Please stay tuned for our next milestone!
 
-### workflow demo
-https://github.com/TMElyralab/Comfyui-MusePose/blob/main/musepose-workflow-demo.json
+### Comfyui-MusePose
 
-https://github.com/TMElyralab/Comfyui-MusePose/assets/114042542/9cd8b9b8-6876-4281-b7a0-a7fbcb2de7e1
+If you're running on Linux, or non-admin account on windows you'll want to ensure `/ComfyUI/custom_nodes` and `Comfyui-MusePose` has write permissions.
 
+Followed ComfyUI's manual installation steps and do the following:
+  - Navigate to your `/ComfyUI/custom_nodes/` folder
+  - Run `git clone https://github.com/TMElyralab/Comfyui-MusePose.git`
+  - Navigate to your `/ComfyUI/custom_nodes/Comfyui-MusePose` folder and run
+  ```shell
+   pip install -r requirements.txt
 
-### Build environment
-
-```shell
-pip install -r requirements.txt
-```
-
-### mmlab packages
-```bash
-pip install --no-cache-dir -U openmim 
-mim install mmengine 
-mim install "mmcv>=2.0.1" 
-mim install "mmdet>=3.1.0" 
-mim install "mmpose>=1.1.0" 
-```
+   pip install --no-cache-dir -U openmim 
+   mim install mmengine 
+   mim install "mmcv>=2.0.1" 
+   mim install "mmdet>=3.1.0" 
+   mim install "mmpose>=1.1.0" 
+  ```
+  - Start ComfyUI
 
 ### Download weights
 You can download weights manually as follows:
@@ -60,3 +58,7 @@ Finally, these weights should be organized in `pretrained_weights` as follows:
     └── diffusion_pytorch_model.bin
 
 ```
+### workflow demo
+https://github.com/TMElyralab/Comfyui-MusePose/blob/main/musepose-workflow-demo.json
+
+https://github.com/TMElyralab/Comfyui-MusePose/assets/114042542/9cd8b9b8-6876-4281-b7a0-a7fbcb2de7e1
