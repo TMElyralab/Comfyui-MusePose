@@ -10,7 +10,7 @@ transformers==4.33.1
 mlflow==2.9.2
 moviepy==1.0.3
 urllib3==1.26.9
-torch==2.0.1
+torch
 torchdiffeq==0.2.3
 torchmetrics==1.2.1
 torchsde==0.2.5
@@ -21,4 +21,4 @@ clip @ https://github.com/openai/CLIP/archive/d50d76daa670286dd6cacf3bcd80b5e482
 decord==0.6.0
 diffusers==0.24.0
 open-clip-torch==2.20.0
-xformers==0.0.22
+xformers
