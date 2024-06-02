@@ -4,7 +4,9 @@
 
 `MusePose` is the last building block of **the Muse opensource serie**. Together with [MuseV](https://github.com/TMElyralab/MuseV) and [MuseTalk](https://github.com/TMElyralab/MuseTalk), we hope the community can join us and march towards the vision where a virtual human can be generated end2end with native ability of full body movement and interaction. Please stay tuned for our next milestone!
 
+
 ### Comfyui-MusePose
+
 
 If you're running on Linux, or non-admin account on windows you'll want to ensure `/ComfyUI/custom_nodes` and `Comfyui-MusePose` has write permissions.
 
@@ -22,6 +24,9 @@ Followed ComfyUI's manual installation steps and do the following:
    mim install "mmpose>=1.1.0" 
   ```
   - Start ComfyUI
+
+#### Updates
+- requirements.txt: diffusers 0.27.2 is now suported
 
 ### Download weights
 You can download weights manually as follows:
