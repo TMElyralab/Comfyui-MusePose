@@ -2,31 +2,13 @@
 import os
 import numpy as np
 import warnings
-
-try:
-    import mmcv
-except ImportError:
-    warnings.warn(
-        "The module 'mmcv' is not installed. The package will have limited functionality. Please install it using the command: mim install 'mmcv>=2.0.1'"
-    )
-
-try:
-    from mmpose.apis import inference_topdown
-    from mmpose.apis import init_model as init_pose_estimator
-    from mmpose.evaluation.functional import nms
-    from mmpose.utils import adapt_mmdet_pipeline
-    from mmpose.structures import merge_data_samples
-except ImportError:
-    warnings.warn(
-        "The module 'mmpose' is not installed. The package will have limited functionality. Please install it using the command: mim install 'mmpose>=1.1.0'"
-    )
-        
-try:
-    from mmdet.apis import inference_detector, init_detector
-except ImportError:
-    warnings.warn(
-        "The module 'mmdet' is not installed. The package will have limited functionality. Please install it using the command: mim install 'mmdet>=3.1.0'"
-    )
+import mmcv
+from mmpose.apis import inference_topdown
+from mmpose.apis import init_model as init_pose_estimator
+from mmpose.evaluation.functional import nms
+from mmpose.utils import adapt_mmdet_pipeline
+from mmpose.structures import merge_data_samples
+from mmdet.apis import inference_detector, init_detector
 
 
 class Wholebody:
