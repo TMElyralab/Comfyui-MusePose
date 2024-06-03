@@ -1,0 +1,15 @@
+[project]
+name = "comfyui-musepose"
+description = "[a/MusePose](https://github.com/TMElyralab/MusePose) is an image-to-video generation framework for virtual human under control signal such as pose.\nNOTE: You need to download weigths manually from: [a/https://huggingface.co/TMElyralab/MusePose](https://huggingface.co/TMElyralab/MusePose).[w/The repository name has changed. If you are not receiving updates, please delete the existing node and reinstall it.]"
+version = "1.0.0"
+license = "LICENSE"
+dependencies = ["einops==0.4.1", "imageio==2.33.0", "imageio-ffmpeg==0.4.9", "omegaconf==2.2.3", "opencv-contrib-python==4.8.1.78", "opencv-python==4.8.1.78", "scikit-image==0.21.0", "scikit-learn==1.3.2", "transformers==4.33.1", "moviepy==1.0.3", "urllib3==1.26.9", "torch", "torchdiffeq", "torchmetrics", "torchsde", "torchvision", "accelerate==0.29.3", "av==11.0.0", "clip @ https://github.com/openai/CLIP/archive/d50d76daa670286dd6cacf3bcd80b5e4823fc8e1.zip#sha256=b5842c25da441d6c581b53a5c60e0c2127ebafe0f746f8e15561a006c6c3be6a", "decord==0.6.0", "diffusers>=0.24.0,<=0.27.2", "open-clip-torch==2.20.0", "xformers"]
+
+[project.urls]
+Repository = "https://github.com/TMElyralab/Comfyui-MusePose"
+#  Used by Comfy Registry https://comfyregistry.org
+
+[tool.comfy]
+PublisherId = ""
+DisplayName = "Comfyui-MusePose"
+Icon = ""
