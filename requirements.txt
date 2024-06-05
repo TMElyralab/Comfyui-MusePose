@@ -17,7 +17,8 @@ torchvision
 accelerate==0.29.3
 av==11.0.0
 clip @ https://github.com/openai/CLIP/archive/d50d76daa670286dd6cacf3bcd80b5e4823fc8e1.zip#sha256=b5842c25da441d6c581b53a5c60e0c2127ebafe0f746f8e15561a006c6c3be6a
-decord==0.6.0
+decord==0.6.0; sys_platform != 'darwin' and platform_machine != 'arm64'
+eva-decord==0.6.1; sys_platform == 'darwin' and platform_machine == 'arm64'
 diffusers>=0.24.0,<=0.27.2
 open-clip-torch==2.20.0
 xformers
