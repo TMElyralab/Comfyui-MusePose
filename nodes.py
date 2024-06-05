@@ -35,6 +35,15 @@ from musepose.utils.util import get_fps, read_frames, save_videos_grid
 from pose.script.dwpose import DWposeDetector, draw_pose
 from pose.script.util import size_calculate, warpAffine_kps
 
+device_auto = (
+    "cuda"
+    if torch.cuda.is_available()
+    else "mps"
+    if torch.backends.mps.is_available()
+    else "cpu"
+)
+print(f'@@device:{device_auto}')
+
 
 def align_img(img, pose_ori, scales, detect_resolution, image_resolution):
 
@@ -599,12 +608,12 @@ def musepose(args, image_path, video):
         weight_dtype = torch.float32
 
     vae = AutoencoderKL.from_pretrained(pretrained_vae_path,
-    ).to("cuda", dtype=weight_dtype)
+    ).to(device_auto, dtype=weight_dtype)
 
     reference_unet = UNet2DConditionModel.from_pretrained(
         pretrained_base_model_path,
         subfolder="unet",
-    ).to(dtype=weight_dtype, device="cuda")
+    ).to(dtype=weight_dtype, device=device_auto)
 
     infer_config = OmegaConf.load(inference_config_path)
     denoising_unet = UNet3DConditionModel.from_pretrained_2d(
@@ -612,15 +621,15 @@ def musepose(args, image_path, video):
         motion_module_path,
         subfolder="unet",
         unet_additional_kwargs=infer_config.unet_additional_kwargs,
-    ).to(dtype=weight_dtype, device="cuda")
+    ).to(dtype=weight_dtype, device=device_auto)
 
     pose_guider = PoseGuider(320, block_out_channels=(16, 32, 96, 256)).to(
-        dtype=weight_dtype, device="cuda"
+        dtype=weight_dtype, device=device_auto
     )
 
     image_enc = CLIPVisionModelWithProjection.from_pretrained(
         image_encoder_path
-    ).to(dtype=weight_dtype, device="cuda")
+    ).to(dtype=weight_dtype, device=device_auto)
 
     sched_kwargs = OmegaConf.to_container(infer_config.noise_scheduler_kwargs)
     scheduler = DDIMScheduler(**sched_kwargs)
@@ -649,8 +658,8 @@ def musepose(args, image_path, video):
         pose_guider=pose_guider,
         scheduler=scheduler,
     )
-    pipe = pipe.to("cuda", dtype=weight_dtype)
-    pipe = pipe.to("cuda", dtype=weight_dtype)
+    pipe = pipe.to(device_auto, dtype=weight_dtype)
+    pipe = pipe.to(device_auto, dtype=weight_dtype)
 
     date_str = datetime.now().strftime("%Y%m%d")
     time_str = datetime.now().strftime("%H%M")
