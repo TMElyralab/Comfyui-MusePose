@@ -26,7 +26,7 @@ Followed ComfyUI's manual installation steps and do the following:
   - Start ComfyUI
 
 #### Updates
-- requirements.txt: diffusers 0.27.2 is now suported
+- requirements.txt: diffusers 0.27.2 is now supported
 
 ### Download weights
 You can download weights manually as follows:
