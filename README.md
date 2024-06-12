@@ -19,7 +19,7 @@ Followed ComfyUI's manual installation steps and do the following:
 
    pip install --no-cache-dir -U openmim 
    mim install mmengine 
-   mim install "mmcv>=2.0.1" 
+   pip install mmcv==2.1.0 -f https://download.openmmlab.com/mmcv/dist/cu121/torch2.1/index.html 
    mim install "mmdet>=3.1.0" 
    mim install "mmpose>=1.1.0" 
   ```
