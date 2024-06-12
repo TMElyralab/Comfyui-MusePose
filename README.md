@@ -16,12 +16,6 @@ Followed ComfyUI's manual installation steps and do the following:
   - Navigate to your `/ComfyUI/custom_nodes/Comfyui-MusePose` folder and run
   ```shell
    pip install -r requirements.txt
-
-   pip install --no-cache-dir -U openmim 
-   mim install mmengine 
-   mim install "mmcv>=2.0.1" 
-   mim install "mmdet>=3.1.0" 
-   mim install "mmpose>=1.1.0" 
   ```
   - Start ComfyUI
 
