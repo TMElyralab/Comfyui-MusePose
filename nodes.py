@@ -613,7 +613,7 @@ def musepose(args, image_path, video):
     reference_unet = UNet2DConditionModel.from_pretrained(
         pretrained_base_model_path,
         subfolder="unet",
-    ).to(dtype=weight_dtype, device=device_auto)
+    ).to(dtype=weight_dtype)
 
     infer_config = OmegaConf.load(inference_config_path)
     denoising_unet = UNet3DConditionModel.from_pretrained_2d(
@@ -621,15 +621,15 @@ def musepose(args, image_path, video):
         motion_module_path,
         subfolder="unet",
         unet_additional_kwargs=infer_config.unet_additional_kwargs,
-    ).to(dtype=weight_dtype, device=device_auto)
+    ).to(dtype=weight_dtype)
 
     pose_guider = PoseGuider(320, block_out_channels=(16, 32, 96, 256)).to(
-        dtype=weight_dtype, device=device_auto
+        dtype=weight_dtype
     )
 
     image_enc = CLIPVisionModelWithProjection.from_pretrained(
         image_encoder_path
-    ).to(dtype=weight_dtype, device=device_auto)
+    ).to(dtype=weight_dtype)
 
     sched_kwargs = OmegaConf.to_container(infer_config.noise_scheduler_kwargs)
     scheduler = DDIMScheduler(**sched_kwargs)
@@ -658,8 +658,13 @@ def musepose(args, image_path, video):
         pose_guider=pose_guider,
         scheduler=scheduler,
     )
-    pipe = pipe.to(device_auto, dtype=weight_dtype)
-
+	
+    print("--->args.lowvram:",args.lowvram)
+    if args.lowvram == True:
+        pipe.enable_sequential_cpu_offload()
+    else:
+        pipe = pipe.to(device_auto, dtype=weight_dtype)
+        
     date_str = datetime.now().strftime("%Y%m%d")
     time_str = datetime.now().strftime("%H%M")
 
@@ -750,6 +755,7 @@ class musepose_class:
                 "cfg":("FLOAT", {"default": 3.5}),
                 "sampling_steps":("INT", {"default": 20}),
                 "fps":("INT", {"default": 12}),
+                "lowvram": ("BOOLEAN", {"default": False}),
             }
         }
  
@@ -758,7 +764,7 @@ class musepose_class:
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "musepose_func"
  
-    def musepose_func(self, image, video, Width, Height, frame_length, slice_frame_number, slice_overlap_frame_number, cfg, sampling_steps, fps):
+    def musepose_func(self, image, video, Width, Height, frame_length, slice_frame_number, slice_overlap_frame_number, cfg, sampling_steps, fps, lowvram):
         Param = namedtuple('Param',[
                            'config',
                            'W',
@@ -770,6 +776,7 @@ class musepose_class:
                            'seed',
                            'steps',
                            'fps',
+                           'lowvram',
                            'skip'])
         args = Param(os.path.join(PROJECT_DIR,"configs/test_stage_2.yaml"),
                      Width,
@@ -781,7 +788,8 @@ class musepose_class:
                      99,
                      sampling_steps,
                      fps,
-                     1) 
+                     lowvram,
+                     1)
 
         ref_image = 255.0 * image[0].cpu().numpy()
         ref_image = Image.fromarray(np.clip(ref_image, 0, 255).astype(np.uint8))
