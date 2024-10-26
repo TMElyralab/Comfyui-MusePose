@@ -22,3 +22,4 @@ eva-decord==0.6.1; sys_platform == 'darwin' and platform_machine == 'arm64'
 diffusers>=0.24.0,<=0.27.2
 open-clip-torch==2.20.0
 xformers
+huggingface_hub<0.26.0
